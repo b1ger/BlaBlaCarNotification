@@ -1,5 +1,16 @@
 package com.blablacarnotification;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,7 +19,7 @@ import java.net.URL;
 
 public class Parser {
 
-    public String process(String urlString) {
+    public String getHtml(String urlString) {
         StringBuilder stringBuilder = new StringBuilder();
 
         try {
@@ -38,5 +49,23 @@ public class Parser {
         }
 
         return stringBuilder.toString();
+    }
+
+    public void createDom(String uri) {
+//        NodeList nodeList = null;
+//        try {
+//            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+//            Document doc = builder.parse(uri);
+//
+//            XPath xPath = XPathFactory.newInstance().newXPath();
+//            nodeList = (NodeList) xPath.evaluate("body", doc.getDocumentElement(), XPathConstants.NODESET);
+//        } catch (IOException |
+//                SAXException |
+//                ParserConfigurationException |
+//                XPathExpressionException ex) {
+//            System.err.println(ex.getMessage());
+//        }
+
+        //TODO
     }
 }
