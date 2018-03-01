@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ul class="trip-search-results"> 
+ <li class="trip relative" itemscope itemtype="http://schema.org/Event"> <a href="/trip-kijiv-kaniv-1022948468" rel="nofollow" class="trip-search-oneresult js-tracktor-search-result" data-search-result-rank="1" data-search-result-id="1022948468-kijiv-kaniv" data-search-result-offer-id="1022948468" data-search-result-seats-left="1" data-search-result-is-corridoring="0" data-search-result-from-meeting-point-id="" data-search-result-to-meeting-point-id="753794"> 
+   <meta itemprop="url" content="https://www.blablacar.com.ua/trip-kijiv-kaniv-1022948468"> 
+   <article class="row"> 
+    <div class="ProfileCard ProfileCard--condensed span2"> 
+     <div class="ProfileCard-head"> 
+      <div class="ProfileCard-picture"> 
+       <div class="PhotoWrapper PhotoWrapper--medium"> 
+        <img src="https://d2kwny77wxvuie.cloudfront.net/user/k001KCq6QeCJkvMQIXKkGw/thumbnail_72x72.jpeg" width="72" height="72" alt="" class="PhotoWrapper-user PhotoWrapper-user--medium u-rounded"> 
+       </div> 
+      </div> 
+      <div class="ProfileCard-infosBlock"> 
+       <h2 class="ProfileCard-info ProfileCard-info--name u-truncate"> Камила К </h2> 
+       <div class="ProfileCard-info">
+         23 р.
+        <br> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="ProfileCard-row"> 
+      <p class="ratings-container"> 
+       <svg aria-hidden="true" class="c-icon u-green-fill">
+        <use xlink:href="#icon-star"></use>
+       </svg> <span class="u-textBold u-darkGray">4,7/5</span><span class="u-gray"> - відгуків: 87</span> </p> 
+     </div> 
+     <div class="ProfileCard-row"> 
+      <span class="tip user-trust-fb u-gray" title="Друзі VK"> <i class="bbc-icon2-vkontakte-logo u-vkontakte"></i> Друзів: 174 </span> 
+     </div> 
+    </div> 
+    <div class="description span5"> 
+     <h3 class="time u-darkGray" itemprop="startDate" content="2018-03-02"> Завтра - 16:30 </h3> 
+     <h3 class="fromto" itemprop="name"> <span class="from trip-roads-stop">Київ</span> <span class="arrow-ie">→</span> <span class="trip-roads-stop">Канів</span> </h3> 
+     <dl class="geo-from"> 
+      <dt> 
+       <svg aria-hidden="true" class="c-icon u-darkGray-fill" style="width: 18px; height: 18px;" title="Місце посадки">
+        <use xlink:href="#icon-circle"></use>
+       </svg> 
+      </dt> 
+      <dd class="js-tip-custom" title="Відправлення">
+        Видубичі, Київ, місто Київ, Україна 
+      </dd> 
+     </dl> 
+     <dl class="geo-to"> 
+      <dt> 
+       <svg aria-hidden="true" class="c-icon u-darkGray-fill" style="width: 18px; height: 18px;" title="Місце прибуття">
+        <use xlink:href="#icon-circle"></use>
+       </svg> 
+      </dt> 
+      <dd class="js-tip-custom" title="Прибуття">
+        Авторіка, Канів 
+      </dd> 
+     </dl> 
+    </div> 
+    <div class="offer span2 u-alignRight"> 
+     <div class="price price-black" itemprop="location"> 
+      <strong> <span class=""> 100&nbsp;₴ </span> </strong> 
+      <span class="priceUnit">з пасажира</span> 
+     </div> 
+     <div class="availability"> 
+      <strong>1</strong> 
+      <span>вільне місце</span> 
+     </div> 
+     <svg aria-hidden="true" class="c-icon u-cell u-right margin-half-left u-darkGray-fill tip" style="width: 28px; height: 28px;" title="Підтвердження: автоматично">
+      <use xlink:href="#icon-lightning"></use>
+     </svg> 
+     <span class="u-visuallyHidden">Підтвердження: автоматично</span> 
+    </div> 
+   </article> </a> </li> 
+ <li class="trip relative" itemscope itemtype="http://schema.org/Event"> <a href="/trip-kijiv-kaniv-1021625420" rel="nofollow" class="trip-search-oneresult js-tracktor-search-result" data-search-result-rank="2" data-search-result-id="1021625420-kijiv-kaniv" data-search-result-offer-id="1021625420" data-search-result-seats-left="1" data-search-result-is-corridoring="0" data-search-result-from-meeting-point-id="" data-search-result-to-meeting-point-id=""> 
+   <meta itemprop="url" content="https://www.blablacar.com.ua/trip-kijiv-kaniv-1021625420"> 
+   <article class="row"> 
+    <div class="ProfileCard ProfileCard--condensed span2"> 
+     <div class="ProfileCard-head"> 
+      <div class="ProfileCard-picture"> 
+       <div class="PhotoWrapper PhotoWrapper--medium"> 
+        <img src="https://d2kwny77wxvuie.cloudfront.net/user/E1NcU1lsTrSsR0cqZDP2wA/thumbnail_72x72.jpeg" width="72" height="72" alt="" class="PhotoWrapper-user PhotoWrapper-user--medium u-rounded"> 
+       </div> 
+      </div> 
+      <div class="ProfileCard-infosBlock"> 
+       <h2 class="ProfileCard-info ProfileCard-info--name u-truncate"> Евгений Г </h2> 
+       <div class="ProfileCard-info">
+         27 р.
+        <br> 
+       </div> 
+       <div class="ProfileCard-info u-truncate">
+         Амбасадор 
+       </div> 
+      </div> 
+     </div> 
+     <div class="ProfileCard-row"> 
+      <p class="ratings-container"> 
+       <svg aria-hidden="true" class="c-icon u-green-fill">
+        <use xlink:href="#icon-star"></use>
+       </svg> <span class="u-textBold u-darkGray">4,8/5</span><span class="u-gray"> - 17 відгуків</span> </p> 
+     </div> 
+    </div> 
+    <div class="description span5"> 
+     <h3 class="time u-darkGray" itemprop="startDate" content="2018-03-02"> Завтра - 17:00 </h3> 
+     <h3 class="fromto" itemprop="name"> <span class="from trip-roads-stop">Київ</span> <span class="arrow-ie">→</span> <span class="trip-roads-stop">Канів</span> </h3> 
+     <dl class="geo-from"> 
+      <dt> 
+       <svg aria-hidden="true" class="c-icon u-darkGray-fill" style="width: 18px; height: 18px;" title="Місце посадки">
+        <use xlink:href="#icon-circle"></use>
+       </svg> 
+      </dt> 
+      <dd class="js-tip-custom" title="Відправлення">
+        Київ, Україна, 02000 
+      </dd> 
+     </dl> 
+     <dl class="geo-to"> 
+      <dt> 
+       <svg aria-hidden="true" class="c-icon u-darkGray-fill" style="width: 18px; height: 18px;" title="Місце прибуття">
+        <use xlink:href="#icon-circle"></use>
+       </svg> 
+      </dt> 
+      <dd class="js-tip-custom" title="Прибуття">
+        Канів, Черкаська область, Україна, 19000 
+      </dd> 
+     </dl> 
+    </div> 
+    <div class="offer span2 u-alignRight"> 
+     <div class="price price-black" itemprop="location"> 
+      <strong> <span class=""> 100&nbsp;₴ </span> </strong> 
+      <span class="priceUnit">з пасажира</span> 
+     </div> 
+     <div class="availability"> 
+      <strong>1</strong> 
+      <span>вільне місце</span> 
+     </div> 
+     <svg aria-hidden="true" class="c-icon u-cell u-right margin-half-left u-darkGray-fill tip" style="width: 28px; height: 28px;" title="Підтвердження: автоматично">
+      <use xlink:href="#icon-lightning"></use>
+     </svg> 
+     <span class="u-visuallyHidden">Підтвердження: автоматично</span> 
+     <svg aria-hidden="true" class="c-icon u-cell u-right margin-half-left u-darkGray-fill tip" style="width: 26px; height: 26px;" title="Евгений Г гарантує, що на задньому сидінні буде не більше двох пасажирів.">
+      <use xlink:href="#icon-backseat"></use>
+     </svg> 
+     <span class="u-visuallyHidden">Евгений Г гарантує, що на задньому сидінні буде не більше двох пасажирів.</span> 
+    </div> 
+   </article> </a> </li> 
+</ul>

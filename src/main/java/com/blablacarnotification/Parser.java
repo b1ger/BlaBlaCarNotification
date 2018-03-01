@@ -1,17 +1,9 @@
 package com.blablacarnotification;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -47,25 +39,20 @@ public class Parser {
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
-
-        return stringBuilder.toString();
+        String result = stringBuilder.toString();
+        return result.replaceAll("<br> ", "");
     }
 
     public void createDom(String uri) {
-//        NodeList nodeList = null;
-//        try {
-//            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-//            Document doc = builder.parse(uri);
-//
-//            XPath xPath = XPathFactory.newInstance().newXPath();
-//            nodeList = (NodeList) xPath.evaluate("body", doc.getDocumentElement(), XPathConstants.NODESET);
-//        } catch (IOException |
-//                SAXException |
-//                ParserConfigurationException |
-//                XPathExpressionException ex) {
-//            System.err.println(ex.getMessage());
-//        }
+        Document doc = Jsoup.parse(uri);
 
-        //TODO
+        try(FileWriter writer = new FileWriter("C:\\Users\\b.herashchenko\\IdeaProjects\\BlaBlaCarNotification\\trips.xml")) {
+            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+            writer.write(doc.getElementsByClass("trip-search-results").toString());
+            writer.flush();
+            writer.close();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 }
