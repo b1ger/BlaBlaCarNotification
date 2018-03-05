@@ -2,15 +2,18 @@ package com.blablacarnotification;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.jsoup.select.Elements;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Parser {
-
     public String getHtml(String urlString) {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -39,20 +42,51 @@ public class Parser {
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
-        String result = stringBuilder.toString();
-        return result.replaceAll("<br> ", "");
+
+        return clearTags(stringBuilder.toString());
     }
 
-    public void createDom(String uri) {
+    public void writeToXml(String uri) {
         Document doc = Jsoup.parse(uri);
 
-        try(FileWriter writer = new FileWriter("C:\\Users\\b.herashchenko\\IdeaProjects\\BlaBlaCarNotification\\trips.xml")) {
+        try(FileWriter writer = new FileWriter(Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(0, Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath().indexOf("target")) + "trips.xml")) {
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
-            writer.write(doc.getElementsByClass("trip-search-results").toString());
+            Elements trips = doc.getElementsByClass("trip-search-results");
+            writer.write(trips.toString());
             writer.flush();
             writer.close();
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
+    }
+
+    public void createDomDocument() {
+        try {
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            org.w3c.dom.Document document = builder.parse(new File(Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(0, Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath().indexOf("target")) + "trips.xml"));
+            NodeList list = document.getDocumentElement().getChildNodes();
+
+            for (int i = 0; i < list.getLength(); i++) {
+                System.out.println(list.item(i).getNodeName());
+            }
+
+        } catch (ParserConfigurationException |
+                SAXException |
+                IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    private String clearTags(String result) {
+        result = result.replaceAll("itemtype=\"(.*)\"", "");
+        result = result.replaceAll("itemscope ", "");
+        result = result.replaceAll("<meta(.*)>", "");
+        result = result.replaceAll("<img(.*)>", "");
+        result = result.replaceAll("<use(.*)></use>", "");
+        result = result.replaceAll("<svg(.*)></svg>", "");
+        result = result.replaceAll("br", "");
+        result = result.replaceAll("\n" +
+                "                            ", "");
+        return result;
     }
 }
