@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ul class="trip-search-results"> 
- <li class="trip relative"> <a href="/trip-kijiv-cherkasi-1023375686-a951645" rel="nofollow" class="trip-search-oneresult js-tracktor-search-result" data-search-result-rank="1" data-search-result-id="1023375686-kijiv-cherkasi" data-search-result-offer-id="1023375686" data-search-result-seats-left="5" data-search-result-is-corridoring="1" data-search-result-from-meeting-point-id="" data-search-result-to-meeting-point-id="951645"> 
+ <li class="trip relative"> <a href="/trip-kijiv-cherkasi-1025616638-a951645" rel="nofollow" class="trip-search-oneresult js-tracktor-search-result" data-search-result-rank="1" data-search-result-id="1025616638-kijiv-cherkasi" data-search-result-offer-id="1025616638" data-search-result-seats-left="1" data-search-result-is-corridoring="1" data-search-result-from-meeting-point-id="" data-search-result-to-meeting-point-id="951645"> 
    <article class="row"> 
     <div class="ProfileCard ProfileCard--condensed span2"> 
      <div class="ProfileCard-head"> 
@@ -9,27 +9,27 @@
        </div> 
       </div> 
       <div class="ProfileCard-infosBlock"> 
-       <h2 class="ProfileCard-info ProfileCard-info--name u-truncate">Виталий М </h2> 
+       <h2 class="ProfileCard-info ProfileCard-info--name u-truncate"> Саша Г </h2> 
        <div class="ProfileCard-info">
-         28 р.&lt; /&gt; 
+         34 р.&lt; /&gt; 
        </div> 
        <div class="ProfileCard-info u-truncate">
-         Досвідчений
+         Амбасадор 
        </div> 
       </div> 
      </div> 
      <div class="ProfileCard-row"> 
-      <p class="ratings-container"> <span class="u-textBold u-darkGray">4,7/5</span><span class="u-gray"> - 3 відгуки</span> </p> 
+      <p class="ratings-container"> <span class="u-textBold u-darkGray">4,8/5</span><span class="u-gray"> - відгуків: 70</span> </p> 
      </div> 
     </div> 
     <div class="description span5"> 
-     <h3 class="time u-darkGray" itemprop="startDate" content="2018-03-05"> Пн 05. бер. - 14:00 </h3> 
+     <h3 class="time u-darkGray" itemprop="startDate" content="2018-03-10"> Сб 10. бер. - 11:00 </h3> 
      <h3 class="fromto" itemprop="name"> <span class="from trip-roads-stop">Київ</span> <span class="arrow-ie">→</span> <span class="trip-roads-stop">Межиріч</span> <span class="arrow-ie">→</span> <span class="trip-background">Черкаси</span> </h3> 
      <dl class="geo-from"> 
       <dt> 
       </dt> 
       <dd class="js-tip-custom" title="Відправлення">
-        вулиця Академіка Заболотного, Київ, Україна 
+        Демиевская, Київ, місто Київ, Україна 
       </dd> 
      </dl> 
      <dl class="geo-to"> 
@@ -42,116 +42,14 @@
     </div> 
     <div class="offer span2 u-alignRight"> 
      <div class="price price-black" itemprop="location"> 
-      <strong> <span class=""> 88&nbsp;₴</span> </strong> 
+      <strong> <span class=""> 103₴ </span> </strong>
       <span class="priceUnit">з пасажира</span> 
      </div> 
      <div class="availability"> 
-      <strong>5</strong> 
-      <span>вільних місць</span> 
+      <strong>1</strong> 
+      <span>вільне місце</span> 
      </div> 
-     <span class="u-visuallyHidden">Виталий М гарантує, що на задньому сидінні буде не більше двох пасажирів.</span> 
-    </div> 
-   </article> </a> </li> 
- <li class="trip relative"> <a href="/trip-kijiv-kaniv-1024022390" rel="nofollow" class="trip-search-oneresult js-tracktor-search-result" data-search-result-rank="2" data-search-result-id="1024022390-kijiv-kaniv" data-search-result-offer-id="1024022390" data-search-result-seats-left="2" data-search-result-is-corridoring="0" data-search-result-from-meeting-point-id="" data-search-result-to-meeting-point-id="753794"> 
-   <article class="row"> 
-    <div class="ProfileCard ProfileCard--condensed span2"> 
-     <div class="ProfileCard-head"> 
-      <div class="ProfileCard-picture"> 
-       <div class="PhotoWrapper PhotoWrapper--medium"> 
-       </div> 
-      </div> 
-      <div class="ProfileCard-infosBlock"> 
-       <h2 class="ProfileCard-info ProfileCard-info--name u-truncate">Владимир З </h2> 
-       <div class="ProfileCard-info">
-         57 р.&lt; /&gt; 
-       </div> 
-       <div class="ProfileCard-info u-truncate">
-         Амбасадор
-       </div> 
-      </div> 
-     </div> 
-     <div class="ProfileCard-row"> 
-      <p class="ratings-container"> <span class="u-textBold u-darkGray">5/5</span><span class="u-gray"> - 17 відгуків</span> </p> 
-     </div> 
-    </div> 
-    <div class="description span5"> 
-     <h3 class="time u-darkGray" itemprop="startDate" content="2018-03-05"> Пн 05. бер. - 15:30 </h3> 
-     <h3 class="fromto" itemprop="name"> <span class="from trip-roads-stop">Київ</span> <span class="arrow-ie">→</span> <span class="trip-roads-stop">Канів</span> </h3> 
-     <dl class="geo-from"> 
-      <dt> 
-      </dt> 
-      <dd class="js-tip-custom" title="Відправлення">
-        Видубичі, Київ, місто Київ, Україна 
-      </dd> 
-     </dl> 
-     <dl class="geo-to"> 
-      <dt> 
-      </dt> 
-      <dd class="js-tip-custom" title="Прибуття">
-        Авторіка, Канів 
-      </dd> 
-     </dl> 
-    </div> 
-    <div class="offer span2 u-alignRight"> 
-     <div class="price price-black" itemprop="location"> 
-      <strong> <span class=""> 100&nbsp;₴</span> </strong> 
-      <span class="priceUnit">з пасажира</span> 
-     </div> 
-     <div class="availability"> 
-      <strong>2</strong> 
-      <span>вільних місця</span> 
-     </div> 
-     <span class="u-visuallyHidden">Підтвердження: автоматично</span> 
-     <span class="u-visuallyHidden">Владимир З гарантує, що на задньому сидінні буде не більше двох пасажирів.</span> 
-    </div> 
-   </article> </a> </li> 
- <li class="trip relative"> <a href="/trip-kijiv-kaniv-1018649054" rel="nofollow" class="trip-search-oneresult js-tracktor-search-result" data-search-result-rank="3" data-search-result-id="1018649054-kijiv-kaniv" data-search-result-offer-id="1018649054" data-search-result-seats-left="3" data-search-result-is-corridoring="0" data-search-result-from-meeting-point-id="" data-search-result-to-meeting-point-id=""> 
-   <article class="row"> 
-    <div class="ProfileCard ProfileCard--condensed span2"> 
-     <div class="ProfileCard-head"> 
-      <div class="ProfileCard-picture"> 
-       <div class="PhotoWrapper PhotoWrapper--medium"> 
-       </div> 
-      </div> 
-      <div class="ProfileCard-infosBlock"> 
-       <h2 class="ProfileCard-info ProfileCard-info--name u-truncate">Сергій Г </h2> 
-       <div class="ProfileCard-info">
-         34 р.&lt; /&gt; 
-       </div> 
-      </div> 
-     </div> 
-     <div class="ProfileCard-row"> 
-      <p class="ratings-container"> <span class="u-textBold u-darkGray">5/5</span><span class="u-gray"> - 1 відгук</span> </p> 
-     </div> 
-    </div> 
-    <div class="description span5"> 
-     <h3 class="time u-darkGray" itemprop="startDate" content="2018-03-05"> Пн 05. бер. - 19:00 </h3> 
-     <h3 class="fromto" itemprop="name"> <span class="from trip-roads-stop">Київ</span> <span class="arrow-ie">→</span> <span class="trip-roads-stop">Канів</span> </h3> 
-     <dl class="geo-from"> 
-      <dt> 
-      </dt> 
-      <dd class="js-tip-custom" title="Відправлення">
-        Київ, Україна, 02000 
-      </dd> 
-     </dl> 
-     <dl class="geo-to"> 
-      <dt> 
-      </dt> 
-      <dd class="js-tip-custom" title="Прибуття">
-        вулиця Енергетиків, Канів, Черкаська область, Україна, 19000 
-      </dd> 
-     </dl> 
-    </div> 
-    <div class="offer span2 u-alignRight"> 
-     <div class="price price-black" itemprop="location"> 
-      <strong> <span class=""> 90&nbsp;₴</span> </strong> 
-      <span class="priceUnit">з пасажира</span> 
-     </div> 
-     <div class="availability"> 
-      <strong>3</strong> 
-      <span>вільних місця</span> 
-     </div> 
-     <span class="u-visuallyHidden">Підтвердження: автоматично</span> 
+     <span class="u-visuallyHidden">Саша Г гарантує, що на задньому сидінні буде не більше двох пасажирів.</span> 
     </div> 
    </article> </a> </li> 
 </ul>

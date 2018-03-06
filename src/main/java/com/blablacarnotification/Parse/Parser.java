@@ -1,24 +1,45 @@
-package com.blablacarnotification;
+package com.blablacarnotification.Parse;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Parser {
-    public String getHtml(String urlString) {
+public class Parser implements ParserInterface {
+
+    private String xmlFile;
+    private String url;
+
+    public Parser(String[] args) {
+        this.url = buildUrl(args);
+        this.xmlFile = getPathToFile();
+    }
+
+    private String buildUrl(String[] args) {
+        String url;
+        url = "https://www.blablacar.com.ua/ride-sharing/" +
+                args[0] + "/" +
+                args[1] + "/" +
+                "?db=" + args[2].replaceAll("/", "%2F");
+
+        return url;
+    }
+
+    private String getPathToFile() {
+        return Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+                .substring(0, Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+                        .indexOf("target")) + "trips.xml";
+    }
+
+    @Override
+    public String getHtml() {
         StringBuilder stringBuilder = new StringBuilder();
 
         try {
-            URL url = new URL(urlString);
+            URL url = new URL(getUrl());
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36");
@@ -36,6 +57,7 @@ public class Parser {
                         stringBuilder.append(new String(buffer, 0, read));
                     }
                 } while (read > 0);
+                reader.close();
             } finally {
                 connection.disconnect();
             }
@@ -46,10 +68,11 @@ public class Parser {
         return clearTags(stringBuilder.toString());
     }
 
-    public void writeToXml(String uri) {
-        Document doc = Jsoup.parse(uri);
-
-        try(FileWriter writer = new FileWriter(Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(0, Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath().indexOf("target")) + "trips.xml")) {
+    @Override
+    public boolean writeToXml(String html) {
+        Document doc = Jsoup.parse(html);
+        String fileName = Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(0, Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath().indexOf("target")) + "trips.xml";
+        try(FileWriter writer = new FileWriter(fileName)) {
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
             Elements trips = doc.getElementsByClass("trip-search-results");
             writer.write(trips.toString());
@@ -57,24 +80,18 @@ public class Parser {
             writer.close();
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
+            return false;
         }
+
+        return true;
     }
 
-    public void createDomDocument() {
-        try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            org.w3c.dom.Document document = builder.parse(new File(Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(0, Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath().indexOf("target")) + "trips.xml"));
-            NodeList list = document.getDocumentElement().getChildNodes();
+    public String getXmlFile() {
+        return this.xmlFile;
+    }
 
-            for (int i = 0; i < list.getLength(); i++) {
-                System.out.println(list.item(i).getNodeName());
-            }
-
-        } catch (ParserConfigurationException |
-                SAXException |
-                IOException ex) {
-            System.err.println(ex.getMessage());
-        }
+    public String getUrl() {
+        return url;
     }
 
     private String clearTags(String result) {
@@ -85,8 +102,7 @@ public class Parser {
         result = result.replaceAll("<use(.*)></use>", "");
         result = result.replaceAll("<svg(.*)></svg>", "");
         result = result.replaceAll("br", "");
-        result = result.replaceAll("\n" +
-                "                            ", "");
+        result = result.replaceAll("nbsp", "");
         return result;
     }
 }
