@@ -71,8 +71,7 @@ public class Parser implements ParserInterface {
     @Override
     public boolean writeToXml(String html) {
         Document doc = Jsoup.parse(html);
-        String fileName = Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(0, Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath().indexOf("target")) + "trips.xml";
-        try(FileWriter writer = new FileWriter(fileName)) {
+        try(FileWriter writer = new FileWriter(getXmlFile())) {
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
             Elements trips = doc.getElementsByClass("trip-search-results");
             writer.write(trips.toString());
@@ -101,8 +100,8 @@ public class Parser implements ParserInterface {
         result = result.replaceAll("<img(.*)>", "");
         result = result.replaceAll("<use(.*)></use>", "");
         result = result.replaceAll("<svg(.*)></svg>", "");
-        result = result.replaceAll("br", "");
-        result = result.replaceAll("nbsp", "");
+        result = result.replaceAll("(?i)<br */?>", "");
+        result = result.replaceAll("\\u00a0", "");
         return result;
     }
 }
