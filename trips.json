@@ -1,0 +1,147 @@
+{
+  "links": {
+    "_self": "https:\/\/api.blablacar.com.ua\/api\/v2\/trips?_locale=uk_UA",
+    "_front": "https:\/\/www.blablacar.com.ua\/search?fn=Kiev&tn=Kanev&db=16\/03\/2018"
+  },
+  "pager": {
+    "page": 1,
+    "pages": 1,
+    "total": 1,
+    "limit": 50
+  },
+  "trips": [
+    {
+      "links": {
+        "_self": "https:\/\/api.blablacar.com.ua\/api\/v2\/trips\/1033088732-kijiv-kaniv?_locale=uk_UA",
+        "_front": "https:\/\/www.blablacar.com.ua\/trip-kijiv-kaniv-1033088732",
+        "_threads": "https:\/\/api.blablacar.com.ua\/api\/v2\/trips\/1033088732-kijiv-kaniv\/threads?_locale=uk_UA"
+      },
+      "departure_date": "16\/03\/2018 21:40:00",
+      "departure_place": {
+        "city_name": "\u041a\u0438\u0457\u0432",
+        "address": "\u0412\u0438\u0434\u0443\u0431\u0438\u0447\u0456, \u041a\u0438\u0457\u0432, \u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432, \u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+        "latitude": 50.401924,
+        "longitude": 30.559033,
+        "country_code": "UA"
+      },
+      "arrival_place": {
+        "city_name": "\u041a\u0430\u043d\u0456\u0432",
+        "address": "\u0410\u0432\u0442\u043e\u0440\u0456\u043a\u0430",
+        "latitude": 49.754359,
+        "longitude": 31.47371,
+        "country_code": "UA",
+        "meeting_point_id": 753794
+      },
+      "arrival_meeting_point": {
+        "id": 753794,
+        "name": "\u0410\u0432\u0442\u043e\u0440\u0456\u043a\u0430",
+        "full_name": "\u0410\u0432\u0442\u043e\u0440\u0456\u043a\u0430, \u041a\u0430\u043d\u0456\u0432",
+        "city_name": "\u041a\u0430\u043d\u0456\u0432",
+        "address": "206 Divizii, Kaniv, Cherkas'ka oblast, Ukraine",
+        "latitude": 49.754359,
+        "longitude": 31.47371,
+        "country_code": "UA",
+        "tags": []
+      },
+      "price": {
+        "value": 100,
+        "currency": "UAH",
+        "symbol": "\u20b4",
+        "string_value": "100\u00a0\u20b4",
+        "price_color": "BLACK"
+      },
+      "price_with_commission": {
+        "value": 120,
+        "currency": "UAH",
+        "symbol": "\u20b4",
+        "string_value": "120\u00a0\u20b4",
+        "price_color": "BLACK"
+      },
+      "price_without_commission": {
+        "value": 100,
+        "currency": "UAH",
+        "symbol": "\u20b4",
+        "string_value": "100\u00a0\u20b4",
+        "price_color": "BLACK"
+      },
+      "commission": {
+        "value": 20,
+        "currency": "UAH",
+        "symbol": "\u20b4",
+        "string_value": "20\u00a0\u20b4"
+      },
+      "seats_left": 1,
+      "seats": 1,
+      "duration": {
+        "value": 7200,
+        "unity": "s"
+      },
+      "distance": {
+        "value": 124,
+        "unity": "km"
+      },
+      "permanent_id": "1033088732-kijiv-kaniv",
+      "car": {
+        "id": "41522133",
+        "model": "PASSAT",
+        "make": "VOLKSWAGEN",
+        "comfort": "\u0421\u0435\u0440\u0435\u0434\u043d\u0456\u0439",
+        "comfort_nb_star": 2
+      },
+      "viaggio_rosa": false,
+      "is_comfort": true,
+      "freeway": true,
+      "booking_mode": "auto",
+      "booking_type": "onboard",
+      "locations_to_display": [
+        "\u041a\u0438\u0457\u0432",
+        "\u041a\u0430\u043d\u0456\u0432"
+      ],
+      "corridoring_type": "PLANNED",
+      "trip_details_id": "Cg4KCjEwMzMwODg3MzIQARILCAISB3U4dnd4cmsaCwgCEgd1OHk3aDF3"
+    }
+  ],
+  "top_trips": [],
+  "facets": [
+    {
+      "name": "hour",
+      "type": "custom",
+      "items": [
+        {
+          "value": 21,
+          "count": 1,
+          "is_selected": true
+        },
+        {
+          "value": 22,
+          "count": 1,
+          "is_selected": true
+        }
+      ]
+    },
+    {
+      "name": "price",
+      "type": "custom",
+      "items": [
+        {
+          "value": 100,
+          "count": 1,
+          "is_selected": true
+        },
+        {
+          "value": 101,
+          "count": 1,
+          "is_selected": true
+        }
+      ]
+    }
+  ],
+  "distance": 138,
+  "duration": 8400,
+  "recommended_price": 75,
+  "savings": 225,
+  "lowest_price": 120,
+  "full_trips_count": 1,
+  "tracktor": "eNp1UsuO2zAM\/BddmwRynKdvvRXotT0tFgIr0152FcmgZKOLIP9eyq9dLFrAsK0ZkUNyeFcNh5uq1HfCQW3Gk7Gh94nf5FujUD+\/LoSDRKnP4FHvDkddLHjw7UyUenfcl4eZ6BgtRYEbcBE3KoUsBX7USuGfSgK\/6xyuu\/Ox0GU54R90it3hdD2P8GeVGhKaX9iSl5x7XVy2utwWpx9aV+PzZXyr+SL6WlW+d26jxnIMY+xdiqqS9hJTZxohTYds0SdBtZbuyCXkiQGbaJBMq\/6AHClk8RobkFxjV9GAa8MiNSUQkbt6CT0v5U7kiHyoq2OyaG7w5xPwHhERcsXTYSBoWwqGQ4Q14iWkVRx6mRpYi11aEwSW\/6nfPBY1QSZwjSwERCsQQ039qhOaJqJEyTwc3SjltXjMM6Narj2pbJ2+XM7lfvtKv2nYvoKnQT1vViWp8Ok+nWTEN9kNsYCk9f\/FLt27YMHNdkyI7ZnR27dxk75lf5nECwPyghYNy1r5VlXX6+50XtnZ9Jk7LabniRqHTXb88fz4C\/NsD4o=",
+  "sorting_algorithm": "trip_date"
+}

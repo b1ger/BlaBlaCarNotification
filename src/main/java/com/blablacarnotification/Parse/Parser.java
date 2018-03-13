@@ -1,29 +1,40 @@
 package com.blablacarnotification.Parse;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 public class Parser implements ParserInterface {
 
-    private String xmlFile;
-    private String url;
+    private String reqUrl;
+    private String from;
+    private String to;
+    private String locale;
+    private String date;
+    private final int LIMIT = 50;
 
-    public Parser(String[] args) {
-        this.url = buildUrl(args);
-        this.xmlFile = getPathToFile();
+    private final String token = "68d3d382580f49fd8c104c0a7acbc2d3";
+
+    public Parser(Map<String, String> params) {
+        from = params.get("from");
+        to = params.get("to");
+        locale = params.get("locale");
+        date = params.get("date");
+        this.reqUrl = buildReqUrl();
     }
 
-    private String buildUrl(String[] args) {
+    private String buildReqUrl() {
         String url;
-        url = "https://www.blablacar.com.ua/ride-sharing/" +
-                args[0] + "/" +
-                args[1] + "/" +
-                "?db=" + args[2].replaceAll("/", "%2F");
+        url = "https://public-api.blablacar.com/api/v2/trips" +
+                "?key=" + token +
+                "&fn=" + from +
+                "&tn=" + to +
+                "&locale=" + locale +
+                "&_format=json" +
+                "&db=" + date +
+                "&limit=" + LIMIT;
 
         return url;
     }
@@ -31,77 +42,51 @@ public class Parser implements ParserInterface {
     private String getPathToFile() {
         return Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath()
                 .substring(0, Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath()
-                        .indexOf("target")) + "trips.xml";
+                        .indexOf("target")) + "trips.json";
     }
 
     @Override
-    public String getHtml() {
-        StringBuilder stringBuilder = new StringBuilder();
-
+    public String getTrips() {
         try {
-            URL url = new URL(getUrl());
-
+            URL url = new URL(getReqUrl());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36");
-            connection.addRequestProperty("Content-Typet", "text/plain");
-            connection.setUseCaches(false);
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
+            System.out.println("Response code: " + connection.getResponseCode());
+            InputStream is = connection.getInputStream();
+            writeToJson(new String(requestBodyToArray(is), StandardCharsets.UTF_8));
 
-            try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                char[] buffer = new char[4096];
-                int read;
-                do {
-                    if ((read = reader.read(buffer)) > 0) {
-                        stringBuilder.append(new String(buffer, 0, read));
-                    }
-                } while (read > 0);
-                reader.close();
-            } finally {
-                connection.disconnect();
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        return null;
+    }
+
+    private void writeToJson(String resp) {
+        File json = new File(getPathToFile());
+        try (OutputStream os = new FileOutputStream(json)) {
+            os.write(resp.getBytes("UTF8"));
+            os.flush();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    private byte[] requestBodyToArray(InputStream is) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buf = new byte[4096];
+        int r;
+        do {
+            r = is.read(buf);
+            if (r > 0) {
+                bos.write(buf, 0, r);
             }
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
-        }
+        } while (r != -1);
 
-        return clearTags(stringBuilder.toString());
+        return bos.toByteArray();
     }
 
-    @Override
-    public boolean writeToXml(String html) {
-        Document doc = Jsoup.parse(html);
-        try(FileWriter writer = new FileWriter(getXmlFile())) {
-            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
-            Elements trips = doc.getElementsByClass("trip-search-results");
-            writer.write(trips.toString());
-            writer.flush();
-            writer.close();
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
-            return false;
-        }
 
-        return true;
-    }
-
-    public String getXmlFile() {
-        return this.xmlFile;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    private String clearTags(String result) {
-        result = result.replaceAll("itemtype=\"(.*)\"", "");
-        result = result.replaceAll("itemscope ", "");
-        result = result.replaceAll("<meta(.*)>", "");
-        result = result.replaceAll("<img(.*)>", "");
-        result = result.replaceAll("<use(.*)></use>", "");
-        result = result.replaceAll("<svg(.*)></svg>", "");
-        result = result.replaceAll("(?i)<br */?>", "");
-        result = result.replaceAll("\\u00a0", "");
-        return result;
+    public String getReqUrl() {
+        return reqUrl;
     }
 }

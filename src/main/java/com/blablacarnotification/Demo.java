@@ -1,14 +1,20 @@
 package com.blablacarnotification;
 
-import com.blablacarnotification.Parse.DataBuilder;
 import com.blablacarnotification.Parse.Parser;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Demo {
     public static void main(String[] args) {
-        Parser parser = new Parser(args);
-        //DataBuilder dataBuilder = new DataBuilder();
+        Map<String, String> params = new HashMap<>();
+        params.put("from", "Kiev");
+        params.put("to", "Kanev");
+        params.put("locale", "uk_UA");
+        params.put("date", "2018-03-16");
 
-        parser.writeToXml(parser.getHtml());
-        //dataBuilder.createDomDocument(parser.getXmlFile());
+        Parser parser = new Parser(params);
+
+        parser.getTrips();
     }
 }

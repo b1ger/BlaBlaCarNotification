@@ -2,7 +2,6 @@ package com.blablacarnotification.Parse;
 
 public interface ParserInterface {
 
-    String getHtml();
+    String getTrips();
 
-    boolean writeToXml(String html);
 }
