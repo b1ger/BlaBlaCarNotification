@@ -19,6 +19,7 @@ public class Parser {
     private String date;
     private final int LIMIT = 50;
 
+    private Gson gson;
     private final String token = "68d3d382580f49fd8c104c0a7acbc2d3";
 
     public Parser(Map<String, String> params) {
@@ -75,17 +76,24 @@ public class Parser {
     }
 
     public List<Trip> readJson() {
-        List<Trip> tripList = new ArrayList<>();
-        InputStream is = getDataFromResource();
-        byte[] bytes = requestBodyToArray(is);
-        String resp = new String(bytes);
-        resp = StringEscapeUtils.unescapeJava(resp);
-        writeToJson(resp);
-        Gson gson = new GsonBuilder().create();
-        Json trips = gson.fromJson(resp, Json.class);
-        Collections.addAll(tripList, trips.trips);
+        try {
+            List<Trip> tripList = new ArrayList<>();
+            InputStream is = getDataFromResource();
+            byte[] bytes = requestBodyToArray(is);
+            String resp = new String(bytes);
+            resp = StringEscapeUtils.unescapeJava(resp);
+            writeToJson(resp);
+            gson = new GsonBuilder().create();
+            Json trips = gson.fromJson(resp, Json.class);
+            Collections.addAll(tripList, trips.trips);
 
-        return tripList;
+            return tripList;
+
+        } catch (JsonSyntaxException ex) {
+            System.err.println("Json not available");
+        }
+
+        return null;
     }
 
     public String getReqUrl() {

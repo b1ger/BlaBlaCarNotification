@@ -30,18 +30,18 @@ public class Voyage implements Runnable {
         List<Trip> currentTrips;
         while (! Thread.currentThread().isInterrupted()) {
             currentTrips = parser.readJson();
-            System.out.println("Available trips: " + currentTrips.size());
-            for (Trip trip : currentTrips) {
-                if (!trips.containsKey(trip.id)) {
-                    send(trip);
-                    trips.put(trip.id, trip);
+            if(currentTrips != null) {
+                for (Trip trip : currentTrips) {
+                    if (!trips.containsKey(trip.id)) {
+                        send(trip);
+                        trips.put(trip.id, trip);
+                    }
                 }
             }
             try {
                 Thread.sleep(1000 * 60);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
-                ex.printStackTrace();
             }
         }
     }
