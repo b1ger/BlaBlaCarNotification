@@ -3,58 +3,16 @@ package com.blablacarnotification.Parser;
 import com.blablacarnotification.Json.Json;
 import com.blablacarnotification.Json.Trip;
 import com.google.gson.*;
-import org.apache.commons.lang.StringEscapeUtils;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Parser {
-
-    private String reqUrl;
-    private String from;
-    private String to;
-    private String locale;
-    private String date;
-    private final int LIMIT = 50;
-
     private Gson gson;
-    private final String token = "68d3d382580f49fd8c104c0a7acbc2d3";
 
-    public Parser(Map<String, String> params) {
-        from = params.get("from");
-        to = params.get("to");
-        locale = params.get("locale");
-        date = params.get("date");
-        this.reqUrl = buildReqUrl();
-    }
-
-    private String buildReqUrl() {
-        String url;
-        url = "https://public-api.blablacar.com/api/v2/trips" +
-                "?key=" + token +
-                "&fn=" + from +
-                "&tn=" + to +
-                "&locale=" + locale +
-                "&_format=json" +
-                "&db=" + date +
-                "&limit=" + LIMIT;
-
-        return url;
-    }
-
-    private InputStream getDataFromResource() {
-        InputStream is = null;
-        try {
-            URL url = new URL(getReqUrl());
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            is = connection.getInputStream();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return is;
+    public Parser() {
+        gson = new GsonBuilder().create();
     }
 
     private byte[] requestBodyToArray(InputStream is) {
@@ -75,15 +33,12 @@ public class Parser {
         return bos.toByteArray();
     }
 
-    public List<Trip> readJson() {
+    public List<Trip> process(InputStream is) {
         try {
             List<Trip> tripList = new ArrayList<>();
-            InputStream is = getDataFromResource();
             byte[] bytes = requestBodyToArray(is);
-            String resp = new String(bytes);
-            resp = StringEscapeUtils.unescapeJava(resp);
-            writeToJson(resp);
-            gson = new GsonBuilder().create();
+            String resp = new String(bytes, StandardCharsets.UTF_8);
+            //writeToJson(resp);
             Json trips = gson.fromJson(resp, Json.class);
             Collections.addAll(tripList, trips.trips);
 
@@ -96,23 +51,19 @@ public class Parser {
         return null;
     }
 
-    public String getReqUrl() {
-        return reqUrl;
-    }
-
-    private void writeToJson(String resp) {
-        File json = new File(getPathToFile());
-        try (OutputStream os = new FileOutputStream(json)) {
-            os.write(resp.getBytes("UTF8"));
-            os.flush();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private String getPathToFile() {
-        return Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath()
-                .substring(0, Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath()
-                        .indexOf("target")) + "trips.json";
-    }
+//    private void writeToJson(String resp) {
+//        File json = new File(getPathToFile());
+//        try (OutputStream os = new FileOutputStream(json)) {
+//            os.write(resp.getBytes("UTF8"));
+//            os.flush();
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+//
+//    private String getPathToFile() {
+//        return Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+//                .substring(0, Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+//                        .indexOf("target")) + "trips.json";
+//    }
 }

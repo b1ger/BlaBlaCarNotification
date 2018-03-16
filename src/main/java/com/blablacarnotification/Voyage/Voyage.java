@@ -1,7 +1,9 @@
 package com.blablacarnotification.Voyage;
 
 import com.blablacarnotification.Json.Trip;
+import com.blablacarnotification.Parser.BlaBlaCarClient;
 import com.blablacarnotification.Parser.Parser;
+import com.blablacarnotification.Utils.Params;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.request.ForceReply;
 import com.pengrad.telegrambot.model.request.ParseMode;
@@ -12,28 +14,29 @@ import java.util.List;
 import java.util.Map;
 
 public class Voyage implements Runnable {
+    private Parser parser;
+    private BlaBlaCarClient client;
+    private Map<String, String> params = new HashMap<>();
     private Map<String, Trip> trips = new HashMap<>();
-    Parser parser;
 
     public Voyage() {
-        Map<String, String> params = new HashMap<>();
-        params.put("from", "Київ");
-        params.put("to", "Канів");
+        params.put("from", "Kiev");
+        params.put("to", "Kaniv");
         params.put("locale", "uk_UA");
         params.put("date", "2018-03-16");
-
-        parser = new Parser(params);
+        client = new BlaBlaCarClient();
+        parser = new Parser();
     }
 
     @Override
     public void run() {
         List<Trip> currentTrips;
         while (! Thread.currentThread().isInterrupted()) {
-            currentTrips = parser.readJson();
+            currentTrips = parser.process(client.connect(params));
             if(currentTrips != null) {
                 for (Trip trip : currentTrips) {
                     if (!trips.containsKey(trip.id)) {
-                        send(trip);
+                        send(trip.toString());
                         trips.put(trip.id, trip);
                     }
                 }
@@ -46,10 +49,9 @@ public class Voyage implements Runnable {
         }
     }
 
-    private void send(Trip trip) {
-        String message = trip.toString();
-        TelegramBot bot = new TelegramBot("587386724:AAF7sz3yQffbxF-Y9QGPc-C-Zy1U1S6YDWk");
-        SendMessage request = new SendMessage(372998799, message)
+    private void send(String message) {
+        TelegramBot bot = new TelegramBot(Params.BOT_TOKEN);
+        SendMessage request = new SendMessage(Params.CHAT_ID, message)
                 .parseMode(ParseMode.HTML)
                 .disableWebPagePreview(true)
                 .disableNotification(true)
