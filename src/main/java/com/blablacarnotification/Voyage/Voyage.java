@@ -23,7 +23,7 @@ public class Voyage implements Runnable {
         params.put("from", "Kiev");
         params.put("to", "Kaniv");
         params.put("locale", "uk_UA");
-        params.put("date", "2018-03-16");
+        params.put("date", "2018-03-19");
         client = new BlaBlaCarClient();
         parser = new Parser();
     }
