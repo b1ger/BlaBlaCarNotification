@@ -41,9 +41,8 @@ public class Parser {
             //writeToJson(resp);
             Json trips = gson.fromJson(resp, Json.class);
             Collections.addAll(tripList, trips.trips);
-
+            System.out.println("Available trips: " + tripList.size() + ";");
             return tripList;
-
         } catch (JsonSyntaxException ex) {
             System.err.println("Json not available");
         }

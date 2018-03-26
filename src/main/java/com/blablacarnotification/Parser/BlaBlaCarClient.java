@@ -10,6 +10,7 @@ import java.util.Map;
 public class BlaBlaCarClient {
     private String reqUrl;
     private final int LIMIT = 50;
+    public int count = 1;
 
     public InputStream connect(Map<String, String> params) {
         reqUrl = buildReqUrl(params);
@@ -19,6 +20,8 @@ public class BlaBlaCarClient {
             URL url = new URL(reqUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             is = connection.getInputStream();
+
+            System.out.print("Request #" + count++ + "; Status: " + connection.getResponseCode() + "; ");
         } catch (Exception ex) {
             System.err.println(ex.getLocalizedMessage());
             return null;

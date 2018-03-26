@@ -14,16 +14,18 @@ import java.util.List;
 import java.util.Map;
 
 public class Voyage implements Runnable {
+    private volatile boolean running = true;
     private Parser parser;
     private BlaBlaCarClient client;
     private Map<String, String> params = new HashMap<>();
     private Map<String, Trip> trips = new HashMap<>();
+    private String from;
+    private String to;
+    private String date;
+    private String locale = "uk_UA";
+    private long chatId;
 
     public Voyage() {
-        params.put("from", "Kiev");
-        params.put("to", "Kaniv");
-        params.put("locale", "uk_UA");
-        params.put("date", "2018-03-19");
         client = new BlaBlaCarClient();
         parser = new Parser();
     }
@@ -31,7 +33,8 @@ public class Voyage implements Runnable {
     @Override
     public void run() {
         List<Trip> currentTrips;
-        while (! Thread.currentThread().isInterrupted()) {
+        initParams();
+        while (running) {
             currentTrips = parser.process(client.connect(params));
             if(currentTrips != null) {
                 for (Trip trip : currentTrips) {
@@ -42,7 +45,7 @@ public class Voyage implements Runnable {
                 }
             }
             try {
-                Thread.sleep(1000 * 60);
+                Thread.sleep(1000 * 60 * 2);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
@@ -51,12 +54,56 @@ public class Voyage implements Runnable {
 
     private void send(String message) {
         TelegramBot bot = new TelegramBot(Params.BOT_TOKEN);
-        SendMessage request = new SendMessage(Params.CHAT_ID, message)
+        SendMessage request = new SendMessage(chatId, message)
                 .parseMode(ParseMode.HTML)
                 .disableWebPagePreview(true)
                 .disableNotification(true)
                 .replyToMessageId(1)
                 .replyMarkup(new ForceReply());
         bot.execute(request);
+    }
+
+    private void initParams() {
+        params.put("from", from);
+        params.put("to", to);
+        params.put("date", date);
+        params.put("locale", locale);
+    }
+
+    public void terminate() {
+        send("Service is stopped");
+        running = false;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setChatId(long chatId) {
+        this.chatId = chatId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public String getLocale() {
+        return locale;
     }
 }
