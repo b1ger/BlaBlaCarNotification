@@ -42,26 +42,29 @@ public class Bot extends TelegramLongPollingBot {
             } else if (message.getText().contains("/set_date")) {
                 setDate(message);
             } else if (message.getText().equals("/search")) {
-                if (checkParams(message)) {
-                    Thread thread = new Thread(trips.get(message.getChatId()));
-                    thread.setDaemon(true);
-                    thread.start();
-                }
+                search(message);
             } else if (message.getText().equals("/check")) {
                 check(message);
             } else if (message.getText().equals("/off")) {
-                Voyage voyage = trips.get(message.getChatId());
-                voyage.terminate();
-                trips.remove(message.getChatId());
+                shutDown(message);
             } else {
                 sendMsg(message, "Unknown command!");
             }
         }
     }
 
+    private void search(Message message) {
+        if (checkParams(message)) {
+            Thread thread = new Thread(trips.get(message.getChatId()));
+            thread.setDaemon(true);
+            thread.start();
+        } else {
+            sendMsg(message, "Check yor params, use /check");
+        }
+    }
+
     public void sendMsg(Message message, String s) {
         SendMessage sendMessage = new SendMessage();
-        sendMessage.enableMarkdown(true);
         sendMessage.setChatId(message.getChatId().toString());
         sendMessage.setReplyToMessageId(message.getMessageId());
         sendMessage.setText(s);
@@ -80,6 +83,18 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public String getBotToken() {
         return Params.BOT_TOKEN;
+    }
+
+    private void shutDown(Message message) {
+        if (trips.containsKey(message.getChatId())) {
+            Voyage voyage = trips.get(message.getChatId());
+            if (voyage.isRunning()) {
+                voyage.terminate();
+            }
+            trips.remove(message.getChatId());
+        } else {
+            sendMsg(message, "Search don't started!");
+        }
     }
 
     private void setFrom(Message message) {
@@ -148,7 +163,6 @@ public class Bot extends TelegramLongPollingBot {
                             "date - " + voyage.getDate() + "."
             );
         } catch (NullPointerException ex) {
-            ex.printStackTrace();
             sendMsg(message, "Use command /start to create trip");
         }
     }

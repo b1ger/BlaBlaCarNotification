@@ -108,4 +108,8 @@ public class Voyage implements Runnable {
     public String getLocale() {
         return locale;
     }
+
+    public boolean isRunning() {
+        return running;
+    }
 }
