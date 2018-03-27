@@ -5,7 +5,6 @@ import com.blablacarnotification.Parser.BlaBlaCarClient;
 import com.blablacarnotification.Parser.Parser;
 import com.blablacarnotification.Utils.Params;
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.model.request.ForceReply;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.SendMessage;
 
@@ -34,21 +33,26 @@ public class Voyage implements Runnable {
     public void run() {
         List<Trip> currentTrips;
         initParams();
-        while (running) {
-            currentTrips = parser.process(client.connect(params));
-            if(currentTrips != null) {
-                for (Trip trip : currentTrips) {
-                    if (!trips.containsKey(trip.id)) {
-                        send(trip.toString());
-                        trips.put(trip.id, trip);
+        try {
+            while (running) {
+                currentTrips = parser.process(client.connect(params));
+                if(currentTrips != null) {
+                    for (Trip trip : currentTrips) {
+                        if (!trips.containsKey(trip.id)) {
+                            send(trip.toString());
+                            trips.put(trip.id, trip);
+                        }
                     }
                 }
+                try {
+                    Thread.sleep(1000 * 60 * 2);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             }
-            try {
-                Thread.sleep(1000 * 60 * 2);
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
+        } catch (Exception ex) {
+            send("Something went wrong. Start the search again.");
+            ex.printStackTrace();
         }
     }
 
@@ -57,9 +61,7 @@ public class Voyage implements Runnable {
         SendMessage request = new SendMessage(chatId, message)
                 .parseMode(ParseMode.HTML)
                 .disableWebPagePreview(true)
-                .disableNotification(true)
-                .replyToMessageId(1)
-                .replyMarkup(new ForceReply());
+                .disableNotification(true);
         bot.execute(request);
     }
 
