@@ -33,8 +33,7 @@ public class Bot extends TelegramLongPollingBot {
         Message message = update.getMessage();
         if (message != null && message.hasText()) {
             if (message.getText().equals("/start")) {
-                trips.put(message.getChatId(), new Voyage());
-                trips.get(message.getChatId()).setChatId(message.getChatId());
+                start(message);
             } else if (message.getText().contains("/set_from")) {
                 setFrom(message);
             } else if (message.getText().contains("/set_to")) {
@@ -53,9 +52,22 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
+    private void start(Message message) {
+        if (!trips.containsKey(message.getChatId())) {
+            trips.put(message.getChatId(), new Voyage());
+            trips.get(message.getChatId()).setChatId(message.getChatId());
+        } else if (trips.containsKey(message.getChatId()) && trips.get(message.getChatId()).isRunning()){
+            sendMsg(message, "Search is started, check your parameters /check");
+        } else {
+            sendMsg(message, "Notifacator is created, /check your parameters and start /search");
+        }
+    }
+
     private void search(Message message) {
         if (checkParams(message)) {
-            Thread thread = new Thread(trips.get(message.getChatId()));
+            Voyage voyage = trips.get(message.getChatId());
+            voyage.setRunning(true);
+            Thread thread = new Thread(voyage);
             thread.setDaemon(true);
             thread.start();
         } else {
@@ -63,7 +75,7 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    public void sendMsg(Message message, String s) {
+    private void sendMsg(Message message, String s) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(message.getChatId().toString());
         sendMessage.setReplyToMessageId(message.getMessageId());
@@ -92,6 +104,7 @@ public class Bot extends TelegramLongPollingBot {
                 voyage.terminate();
             }
             trips.remove(message.getChatId());
+            sendMsg(message, "Service is stopped");
         } else {
             sendMsg(message, "Search don't started!");
         }

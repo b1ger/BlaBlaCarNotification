@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Voyage implements Runnable {
-    private volatile boolean running = true;
+    private volatile boolean running = false;
     private Parser parser;
     private BlaBlaCarClient client;
     private Map<String, String> params = new HashMap<>();
@@ -73,7 +73,6 @@ public class Voyage implements Runnable {
     }
 
     public void terminate() {
-        send("Service is stopped");
         running = false;
     }
 
@@ -111,5 +110,9 @@ public class Voyage implements Runnable {
 
     public boolean isRunning() {
         return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
     }
 }
