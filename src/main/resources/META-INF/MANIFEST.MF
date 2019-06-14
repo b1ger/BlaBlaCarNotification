@@ -1,4 +1,0 @@
-Manifest-Version: 1.0.2
-Class-Path: com.blablacarnotification.Bot.Bot
-Main-Class: com.blablacarnotification.Bot.Bot
-
