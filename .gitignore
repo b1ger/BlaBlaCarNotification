@@ -2,4 +2,4 @@
 target/
 trips.xml
 trips.json
-/src/main/resources/META-INF/persistance.xml
+/src/main/resources/META-INF/persistence.xml
