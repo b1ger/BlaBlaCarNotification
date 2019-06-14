@@ -2,6 +2,7 @@ package com.blablacarnotification.Model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
+@ToString
 public class Trip {
 
     @Id
@@ -16,7 +18,7 @@ public class Trip {
     private Long id;
 
     @Column(name = "permanent_id")
-    private String trip_id;
+    private String tripId;
 
     @Column(name = "departure_date")
     private String date;
@@ -28,7 +30,7 @@ public class Trip {
     private String departureAddress;
 
     @Column(name = "arrival_city_name")
-    private String arrivalCityName;
+    private String arrivalCity;
 
     @Column(name = "arrival_address")
     private String arrivalAddress;
@@ -52,13 +54,5 @@ public class Trip {
     private String link;
 
     public Trip() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
 

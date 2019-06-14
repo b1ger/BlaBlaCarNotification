@@ -1,6 +1,9 @@
 package com.blablacarnotification.Voyage;
 
+import com.blablacarnotification.Model.Trip;
 import com.blablacarnotification.dao.TripDAO;
+
+import java.util.List;
 
 public class TripManager implements Runnable {
 
@@ -17,7 +20,11 @@ public class TripManager implements Runnable {
     public void run() {
         while (voyage.isRunning()) {
             if (newAvailable) {
-                // TODO
+                List<Trip> availableTrips = tripDAO.getNew(voyage.getChatId());
+                for (Trip trip : availableTrips) {
+                    voyage.send(trip.toString());
+                }
+                newAvailable = false;
             }
             try {
                 Thread.sleep(1000 * 10);

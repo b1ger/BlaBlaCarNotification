@@ -21,9 +21,9 @@ public class Voyage implements Runnable {
     private BlaBlaCarClient client;
     private Map<String, String> params = new HashMap<>();
     private Map<String, TripJsonModel> trips = new HashMap<>();
-    private String from;
-    private String to;
-    private String date;
+    private String from = "kyiv";
+    private String to = "kaniv";
+    private String date = "15.06.2019";
     private String locale = "uk_UA";
     private long chatId;
 
@@ -38,18 +38,20 @@ public class Voyage implements Runnable {
         telegramBot = new TelegramBot(Params.BOT_TOKEN);
         this.tripDAO = TripDAOImpl.getInstance();
         this.tripManager = new TripManager(this.tripDAO, this);
+        System.out.println("Start trip manager");
     }
 
     @Override
     public void run() {
         List<TripJsonModel> currentTrips;
         initParams();
+        System.out.println("Chat id: " + chatId);
         startManager();
         try {
             while (running) {
                 currentTrips = parser.process(client.connect(params));
                 if(currentTrips != null && currentTrips.size() > 0) {
-                    System.out.println(currentTrips.toString());
+                    tripDAO.save(chatId, currentTrips, tripManager);
                 }
                 try {
                     Thread.sleep(1000 * 60 * 2);
@@ -131,5 +133,9 @@ public class Voyage implements Runnable {
 
     public void setRunning(boolean running) {
         this.running = running;
+    }
+
+    public long getChatId() {
+        return chatId;
     }
 }
