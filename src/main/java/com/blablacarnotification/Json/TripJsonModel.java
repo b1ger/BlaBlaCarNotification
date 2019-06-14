@@ -2,7 +2,7 @@ package com.blablacarnotification.Json;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Trip {
+public class TripJsonModel {
 
     @SerializedName("permanent_id") public String id;
     @SerializedName("departure_date") public String departureDate;

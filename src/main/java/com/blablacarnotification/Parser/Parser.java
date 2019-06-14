@@ -1,7 +1,7 @@
 package com.blablacarnotification.Parser;
 
 import com.blablacarnotification.Json.Json;
-import com.blablacarnotification.Json.Trip;
+import com.blablacarnotification.Json.TripJsonModel;
 import com.google.gson.*;
 
 import java.io.*;
@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Parser {
+
     private Gson gson;
 
     public Parser() {
@@ -33,12 +34,11 @@ public class Parser {
         return bos.toByteArray();
     }
 
-    public List<Trip> process(InputStream is) {
+    public List<TripJsonModel> process(InputStream is) {
         try {
-            List<Trip> tripList = new ArrayList<>();
+            List<TripJsonModel> tripList = new ArrayList<>();
             byte[] bytes = requestBodyToArray(is);
             String resp = new String(bytes, StandardCharsets.UTF_8);
-            //writeToJson(resp);
             Json trips = gson.fromJson(resp, Json.class);
             Collections.addAll(tripList, trips.trips);
             System.out.println("Available trips: " + tripList.size() + ";");
@@ -49,20 +49,4 @@ public class Parser {
 
         return null;
     }
-
-//    private void writeToJson(String resp) {
-//        File json = new File(getPathToFile());
-//        try (OutputStream os = new FileOutputStream(json)) {
-//            os.write(resp.getBytes("UTF8"));
-//            os.flush();
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
-//
-//    private String getPathToFile() {
-//        return Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath()
-//                .substring(0, Parser.class.getProtectionDomain().getCodeSource().getLocation().getPath()
-//                        .indexOf("target")) + "trips.json";
-//    }
 }

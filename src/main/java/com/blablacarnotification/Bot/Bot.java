@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Bot extends TelegramLongPollingBot {
+
     private Map<Long, Voyage> trips = new HashMap<>();
 
     public static void main(String[] args) {
@@ -34,11 +35,11 @@ public class Bot extends TelegramLongPollingBot {
         if (message != null && message.hasText()) {
             if (message.getText().equals("/start")) {
                 start(message);
-            } else if (message.getText().contains("/set_from")) {
+            } else if (message.getText().contains("/from")) {
                 setFrom(message);
-            } else if (message.getText().contains("/set_to")) {
+            } else if (message.getText().contains("/to")) {
                 setTo(message);
-            } else if (message.getText().contains("/set_date")) {
+            } else if (message.getText().contains("/date")) {
                 setDate(message);
             } else if (message.getText().equals("/search")) {
                 search(message);
@@ -54,7 +55,7 @@ public class Bot extends TelegramLongPollingBot {
 
     private void start(Message message) {
         if (!trips.containsKey(message.getChatId())) {
-            trips.put(message.getChatId(), new Voyage());
+            trips.put(message.getChatId(), new Voyage(message.getChatId()));
             trips.get(message.getChatId()).setChatId(message.getChatId());
         } else if (trips.containsKey(message.getChatId()) && trips.get(message.getChatId()).isRunning()){
             sendMsg(message, "Search is started, check your parameters /check");
@@ -106,7 +107,7 @@ public class Bot extends TelegramLongPollingBot {
             trips.remove(message.getChatId());
             sendMsg(message, "Service is stopped");
         } else {
-            sendMsg(message, "Search don't started!");
+            sendMsg(message, "Search don't start!");
         }
     }
 
@@ -119,7 +120,7 @@ public class Bot extends TelegramLongPollingBot {
             voyage.setFrom(args[1]);
             response = "Departure place is set";
         } else {
-            response = "Dear, you use incorrect command. Set departure place like - /set_from London";
+            response = "Dear, you use incorrect command. Set departure place like - /from London";
         }
         sendMsg(message, response);
     }
@@ -133,7 +134,7 @@ public class Bot extends TelegramLongPollingBot {
             voyage.setTo(args[1]);
             response = "Arrival place is set";
         } else {
-            response = "Dear, you use incorrect command. Set arrival place like - /set_to Paris";
+            response = "Dear, you use incorrect command. Set arrival place like - /to Paris";
         }
         sendMsg(message, response);
     }
@@ -147,17 +148,17 @@ public class Bot extends TelegramLongPollingBot {
             voyage.setDate(args[1]);
             response = "Date is set";
         } else {
-            response = "Dear, you use incorrect command. Set date like - /set_date 2020-03-23";
+            response = "Dear, you use incorrect command. Set date like - /date 2020-03-23";
         }
         sendMsg(message, response);
     }
 
     private boolean checkParams(Message message) {
         Voyage voyage = trips.get(message.getChatId());
-        boolean from = voyage.getFrom() == null ? false : true;
-        boolean to = voyage.getTo() == null ? false : true;
-        boolean date = voyage.getDate() == null ? false : true;
-        boolean locale = voyage.getLocale() == null ? false : true;
+        boolean from = voyage.getFrom() != null;
+        boolean to = voyage.getTo() != null;
+        boolean date = voyage.getDate() != null;
+        boolean locale = voyage.getLocale() != null;
 
         if (from && to && date && locale) {
             return  true;

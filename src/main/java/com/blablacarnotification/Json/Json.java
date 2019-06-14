@@ -1,5 +1,5 @@
 package com.blablacarnotification.Json;
 
 public class Json {
-    public Trip[] trips;
+    public TripJsonModel[] trips;
 }

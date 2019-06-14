@@ -1,9 +1,11 @@
 package com.blablacarnotification.Voyage;
 
-import com.blablacarnotification.Json.Trip;
+import com.blablacarnotification.Json.TripJsonModel;
 import com.blablacarnotification.Parser.BlaBlaCarClient;
 import com.blablacarnotification.Parser.Parser;
 import com.blablacarnotification.Utils.Params;
+import com.blablacarnotification.dao.TripDAO;
+import com.blablacarnotification.dao.TripDAOImpl;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.SendMessage;
@@ -13,36 +15,41 @@ import java.util.List;
 import java.util.Map;
 
 public class Voyage implements Runnable {
+
     private volatile boolean running = false;
     private Parser parser;
     private BlaBlaCarClient client;
     private Map<String, String> params = new HashMap<>();
-    private Map<String, Trip> trips = new HashMap<>();
+    private Map<String, TripJsonModel> trips = new HashMap<>();
     private String from;
     private String to;
     private String date;
     private String locale = "uk_UA";
     private long chatId;
 
-    public Voyage() {
+    private TelegramBot telegramBot;
+    private TripManager tripManager;
+    private TripDAO tripDAO;
+
+    public Voyage(Long chatId) {
+        this.chatId = chatId;
         client = new BlaBlaCarClient();
         parser = new Parser();
+        telegramBot = new TelegramBot(Params.BOT_TOKEN);
+        this.tripDAO = TripDAOImpl.getInstance();
+        this.tripManager = new TripManager(this.tripDAO, this);
     }
 
     @Override
     public void run() {
-        List<Trip> currentTrips;
+        List<TripJsonModel> currentTrips;
         initParams();
+        startManager();
         try {
             while (running) {
                 currentTrips = parser.process(client.connect(params));
-                if(currentTrips != null) {
-                    for (Trip trip : currentTrips) {
-                        if (!trips.containsKey(trip.id)) {
-                            send(trip.toString());
-                            trips.put(trip.id, trip);
-                        }
-                    }
+                if(currentTrips != null && currentTrips.size() > 0) {
+                    System.out.println(currentTrips.toString());
                 }
                 try {
                     Thread.sleep(1000 * 60 * 2);
@@ -56,13 +63,12 @@ public class Voyage implements Runnable {
         }
     }
 
-    private void send(String message) {
-        TelegramBot bot = new TelegramBot(Params.BOT_TOKEN);
+    public void send(String message) {
         SendMessage request = new SendMessage(chatId, message)
                 .parseMode(ParseMode.HTML)
-                .disableWebPagePreview(true)
-                .disableNotification(true);
-        bot.execute(request);
+                .disableWebPagePreview(true);
+                //.disableNotification(true);
+        this.telegramBot.execute(request);
     }
 
     private void initParams() {
@@ -70,6 +76,17 @@ public class Voyage implements Runnable {
         params.put("to", to);
         params.put("date", date);
         params.put("locale", locale);
+    }
+
+    private void startManager() {
+        Thread thread = new Thread(this.tripManager);
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    public void stop() {
+        Thread.currentThread().interrupt();
+        send("Something went wrong. Start the search again.");
     }
 
     public void terminate() {

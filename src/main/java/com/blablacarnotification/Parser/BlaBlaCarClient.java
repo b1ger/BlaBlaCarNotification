@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.Map;
 
 public class BlaBlaCarClient {
+
     private String reqUrl;
     private final int LIMIT = 50;
     public int count = 1;

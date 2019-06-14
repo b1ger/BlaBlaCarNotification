@@ -2,4 +2,4 @@
 target/
 trips.xml
 trips.json
-blablacarnotification.iml
+/src/main/resources/META-INF/persistence.xml
