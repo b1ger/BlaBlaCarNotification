@@ -14,7 +14,7 @@ public class Converter {
         }
         if (source.getArrivalPoint() != null) {
             trip.setArrivalCity(source.getArrivalPoint().getCity());
-            trip.setArrivalAddress(source.getArrivalPoint().getAddress() + ", " + source.getArrivalPoint().getFullName());
+            trip.setArrivalAddress(source.getArrivalPoint().getAddress());
         }
         if (source.getPrice() != null) {
             trip.setCurrency(source.getPrice().getCurrency());

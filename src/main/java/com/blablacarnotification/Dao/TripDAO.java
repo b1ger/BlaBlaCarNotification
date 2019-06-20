@@ -1,4 +1,4 @@
-package com.blablacarnotification.dao;
+package com.blablacarnotification.Dao;
 
 import com.blablacarnotification.Json.TripJsonModel;
 import com.blablacarnotification.Model.Trip;
@@ -9,5 +9,6 @@ import java.util.List;
 public interface TripDAO {
 
     void save(Long chatId, List<TripJsonModel> trips, TripManager tripManager);
-    List<Trip> getNew(long chatId);
+    List<Trip> getNew(Long chatId, Long lastId);
+    void clear(Long chatId);
 }

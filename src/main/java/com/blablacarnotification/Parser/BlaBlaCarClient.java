@@ -11,7 +11,7 @@ public class BlaBlaCarClient {
 
     private String reqUrl;
     private final int LIMIT = 50;
-    public int count = 1;
+    private int count = 1;
 
     public InputStream connect(Map<String, String> params) {
         reqUrl = buildReqUrl(params);

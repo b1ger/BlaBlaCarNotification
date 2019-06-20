@@ -1,4 +1,4 @@
-package com.blablacarnotification.dao;
+package com.blablacarnotification.Dao;
 
 import com.blablacarnotification.Json.TripJsonModel;
 import com.blablacarnotification.Model.Converter;
@@ -36,6 +36,7 @@ public class TripDAOImpl implements TripDAO {
             List<String> tripIds = query.getResultList();
             for (TripJsonModel jsonModel : trips) {
                 Trip trip = Converter.jsonToModel(jsonModel);
+                trip.setChatId(chatId);
                 if (tripIds.contains(trip.getTripId())) {
                     query = entityManager.createQuery("select t from Trip t where t.tripId=?1", Trip.class);
                     query.setParameter(1, trip.getTripId());
@@ -63,9 +64,23 @@ public class TripDAOImpl implements TripDAO {
     }
 
     @Override
-    public synchronized List<Trip> getNew(long chatId) {
-        // TODO
-        return null;
+    public synchronized List<Trip> getNew(Long chatId, Long lastId) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        Query query = entityManager.createQuery("select t from Trip t where t.chatId=?1 and t.id>?2", Trip.class);
+        query.setParameter(1, chatId).setParameter(2, lastId);
+        transaction.commit();
+        return query.getResultList();
+    }
+
+    @Override
+    public synchronized void clear(Long chatId) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        Query query = entityManager.createQuery("delete from Trip t where t.chatId=?1");
+        query.setParameter(1, chatId);
+        query.executeUpdate();
+        transaction.commit();
     }
 
     public static synchronized TripDAO getInstance() {

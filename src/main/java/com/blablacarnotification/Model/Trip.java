@@ -10,12 +10,14 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
-@ToString
 public class Trip {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "chat_id")
+    private Long chatId;
 
     @Column(name = "permanent_id")
     private String tripId;
@@ -54,5 +56,23 @@ public class Trip {
     private String link;
 
     public Trip() {}
+
+    @Override
+    public String toString() {
+        return "Trip id: " + getTripId() + "\n" +
+                "\tDate: " + getDate() + "\n" +
+                "\tDeparture:\n" +
+                "\t\tCity:" + getDepartureCity() + "\n" +
+                "\t\tAddress: " + getDepartureAddress() + "\n" +
+                "\tArrival:\n" +
+                "\t\tCity: " + getArrivalCity() + "\n" +
+                "\t\tAddress: " + getArrivalAddress() + "\n" +
+                "\tCar:\n" +
+                "\t\t" + getCar() + "\n" +
+                "\t\tSeats: " + getSeats() + "\n" +
+                "\t\tSeats left: " + getSeatsLeft() + "\n" +
+                "\tPrice: " + getPriceValue() + "\n" +
+                "\tLink: " + getLink();
+    }
 }
 

@@ -102,7 +102,7 @@ public class Bot extends TelegramLongPollingBot {
         if (trips.containsKey(message.getChatId())) {
             Voyage voyage = trips.get(message.getChatId());
             if (voyage.isRunning()) {
-                voyage.terminate();
+                voyage.stop();
             }
             trips.remove(message.getChatId());
             sendMsg(message, "Service is stopped");

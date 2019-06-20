@@ -1,7 +1,7 @@
 package com.blablacarnotification.Voyage;
 
 import com.blablacarnotification.Model.Trip;
-import com.blablacarnotification.dao.TripDAO;
+import com.blablacarnotification.Dao.TripDAO;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ public class TripManager implements Runnable {
     private TripDAO tripDAO;
     private Voyage voyage;
     private boolean newAvailable = false;
+    private Long lastGetId = 0L;
 
     public TripManager(TripDAO tripDAO, Voyage voyage) {
         this.tripDAO = tripDAO;
@@ -20,9 +21,10 @@ public class TripManager implements Runnable {
     public void run() {
         while (voyage.isRunning()) {
             if (newAvailable) {
-                List<Trip> availableTrips = tripDAO.getNew(voyage.getChatId());
+                List<Trip> availableTrips = tripDAO.getNew(voyage.getChatId(), this.lastGetId);
                 for (Trip trip : availableTrips) {
                     voyage.send(trip.toString());
+                    this.lastGetId = trip.getId();
                 }
                 newAvailable = false;
             }

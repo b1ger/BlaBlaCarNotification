@@ -4,8 +4,8 @@ import com.blablacarnotification.Json.TripJsonModel;
 import com.blablacarnotification.Parser.BlaBlaCarClient;
 import com.blablacarnotification.Parser.Parser;
 import com.blablacarnotification.Utils.Params;
-import com.blablacarnotification.dao.TripDAO;
-import com.blablacarnotification.dao.TripDAOImpl;
+import com.blablacarnotification.Dao.TripDAO;
+import com.blablacarnotification.Dao.TripDAOImpl;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.SendMessage;
@@ -20,10 +20,9 @@ public class Voyage implements Runnable {
     private Parser parser;
     private BlaBlaCarClient client;
     private Map<String, String> params = new HashMap<>();
-    private Map<String, TripJsonModel> trips = new HashMap<>();
-    private String from = "kyiv";
-    private String to = "kaniv";
-    private String date = "15.06.2019";
+    private String from;
+    private String to;
+    private String date;
     private String locale = "uk_UA";
     private long chatId;
 
@@ -38,7 +37,6 @@ public class Voyage implements Runnable {
         telegramBot = new TelegramBot(Params.BOT_TOKEN);
         this.tripDAO = TripDAOImpl.getInstance();
         this.tripManager = new TripManager(this.tripDAO, this);
-        System.out.println("Start trip manager");
     }
 
     @Override
@@ -87,6 +85,7 @@ public class Voyage implements Runnable {
     }
 
     public void stop() {
+        tripDAO.clear(chatId);
         Thread.currentThread().interrupt();
         send("Something went wrong. Start the search again.");
     }
